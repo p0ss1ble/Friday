@@ -19,10 +19,10 @@ class CRectangleClass{
 
 
 int main() {
-    ifstream file("coordinates.txt"); // открываем файл для чтения
+    ifstream file("coordinates.txt");
     double x1, y1, x2, y2;
-    file >> x1 >> y1 >> x2 >> y2; // читаем координаты первого прямоугольника
-    CRectangleClass rectangle1(x1, y1, x2, y2); // создаем первый прямоугольник
+    file >> x1 >> y1 >> x2 >> y2;
+    CRectangleClass rectangle1(x1, y1, x2, y2);
     file >> x1 >> y1 >> x2 >> y2;
     CRectangleClass rectangle2(x1, y1, x2, y2);
 
