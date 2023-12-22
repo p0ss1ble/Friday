@@ -1,43 +1,36 @@
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <map>
-#include <algorithm>
+#include <cctype>
 
-using namespace std;
+int main() {
+    std::string filename;
+    std::cout << "Enter the name of the file: ";
+    std::getline(std::cin, filename);
 
+    std::ifstream file(filename);
+    
+    if (!file.is_open()) {
+        std::cerr << "Error opening file.\n";
+        return 1;
+    }
 
-void stat_tolstoy(string name) {
-    map<char, int> alphabet{};
+    std::map<char, int> letterCount;
+
     char c;
-
-    for (int i = 0, c = 'A'; i < 32; ++i,++c){
-        alphabet[c] = 0;
-    }  
-
-    string s;
-    ifstream file(name);
-
-    while(getline(file, s)){ 
-        for(const auto& i : s) {
-            if ('A' <= i && i <= 'Z'){
-                alphabet[i]++;
-            }
-            else if ('a' <= i && i <= 'z'){
-                alphabet[char(toupper(i))]++;
-            }
+    while (file.get(c)) {
+        if (isalpha(c)) {
+            char uppercaseC = toupper(c);  // Convert to uppercase for case-insensitivity
+            letterCount[uppercaseC]++;
         }
-
     }
+
     file.close();
-    for (auto it = alphabet.begin(); it != alphabet.end(); ++it){
-        cout << (*it).first << " : " << (*it).second << endl;
+
+    std::cout << "Letter counts:\n";
+    for (char c = 'A'; c <= 'Z'; ++c) {
+        std::cout << c << ": " << letterCount[c] << " letters\n";
     }
-    cout << endl << endl;
-}
 
-
-int main(){
-    stat_tolstoy("volume_1.txt");
     return 0;
 }
